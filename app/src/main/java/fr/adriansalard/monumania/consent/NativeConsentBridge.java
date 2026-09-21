@@ -1,4 +1,4 @@
-package fr.adriansalard.monumania.consent;
+package com.kartel99games.monumania.consent;
 
 import android.app.Activity;
 import android.webkit.JavascriptInterface;
