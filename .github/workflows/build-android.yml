@@ -1,10 +1,7 @@
-name: Build MONUMANIA Android
+name: Build MONUMANIA Android Signed
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
 
 jobs:
   build:
@@ -23,11 +20,23 @@ jobs:
       - name: Make Gradle executable
         run: chmod +x gradlew
 
-      - name: Build Android App Bundle
+      - name: Restore signing key
+        run: |
+          echo "${{ secrets.MONUMANIA_KEYSTORE_BASE64 }}" | base64 --decode > MONUMANIA-upload-key.jks
+
+      - name: Create signing properties
+        run: |
+          echo "storeFile=$(pwd)/MONUMANIA-upload-key.jks" > keystore.properties
+          echo "storePassword=${{ secrets.MONUMANIA_KEYSTORE_PASSWORD }}" >> keystore.properties
+          echo "keyAlias=monumania" >> keystore.properties
+          echo "keyPassword=${{ secrets.MONUMANIA_KEY_PASSWORD }}" >> keystore.properties
+
+      - name: Build signed Android App Bundle
         run: ./gradlew bundleRelease
 
-      - name: Upload AAB
+      - name: Upload signed AAB
         uses: actions/upload-artifact@v4
         with:
-          name: MONUMANIA-AAB
+          name: MONUMANIA-SIGNED-AAB
           path: app/build/outputs/bundle/release/*.aab
+          retention-days: 30
