@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Monumania.Splash"
         android:usesCleartextTraffic="false">
+        <meta-data
+    android:name="com.google.android.gms.ads.APPLICATION_ID"
+    android:value="ca-app-pub-6035067894119408~1325155490" />
         <activity
             android:name=".MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
