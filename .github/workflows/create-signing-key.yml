@@ -1,0 +1,35 @@
+name: Create MONUMANIA Signing Key
+
+on:
+  workflow_dispatch:
+
+jobs:
+  create-key:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Generate MONUMANIA keystore
+        run: |
+          keytool -genkeypair \
+            -v \
+            -keystore MONUMANIA-upload-key.jks \
+            -alias monumania \
+            -keyalg RSA \
+            -keysize 2048 \
+            -validity 10000 \
+            -storepass "${{ secrets.MONUMANIA_KEYSTORE_PASSWORD }}" \
+            -keypass "${{ secrets.MONUMANIA_KEY_PASSWORD }}" \
+            -dname "CN=MONUMANIA, OU=Android, O=SupSup300, C=FR"
+
+      - name: Upload signing key
+        uses: actions/upload-artifact@v4
+        with:
+          name: MONUMANIA-SIGNING-KEY
+          path: MONUMANIA-upload-key.jks
+          retention-days: 7
