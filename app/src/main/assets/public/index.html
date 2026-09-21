@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+  <meta name="theme-color" content="#061d35">
+  <meta name="description" content="MONUMANIA, le Match-3 qui fait voyager de monument en monument.">
+  <title>MONUMANIA — Le monde à portée de match</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preload" href="assets/atlas-background.png" as="image">
+  <link rel="preload" href="assets/monuments-sprite.png" as="image">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <noscript>MONUMANIA nécessite JavaScript pour fonctionner.</noscript>
+  <div id="app" class="app" aria-live="polite"></div>
+  <div id="toast-layer" class="toast-layer" aria-live="assertive" aria-atomic="true"></div>
+  <div id="modal-layer" class="modal-layer" aria-live="polite"></div>
+  <script type="module" src="app.mjs"></script>
+</body>
+</html>

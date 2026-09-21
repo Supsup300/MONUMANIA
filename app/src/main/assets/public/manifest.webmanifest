@@ -1,0 +1,13 @@
+{
+  "name": "MONUMANIA",
+  "short_name": "MONUMANIA",
+  "description": "Le monde à portée de match !",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#061d35",
+  "theme_color": "#061d35",
+  "icons": [
+    {"src":"favicon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}
