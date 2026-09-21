@@ -9,6 +9,12 @@ import android.webkit.WebViewClient;
 
 import androidx.webkit.WebViewAssetLoader;
 
+import com.google.android.gms.ads.MobileAds;
+
+import com.kartel99games.monumania.ads.AdMobAdsGateway;
+import com.kartel99games.monumania.ads.AdsGateway;
+import com.kartel99games.monumania.ads.NativeAdsBridge;
+
 public final class MainActivity extends Activity {
 
     private static final String APP_HOST = "appassets.androidplatform.net";
@@ -16,6 +22,7 @@ public final class MainActivity extends Activity {
             "https://" + APP_HOST + "/assets/public/index.html";
 
     private WebView webView;
+    private AdsGateway adsGateway;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +59,28 @@ public final class MainActivity extends Activity {
 
         setContentView(webView);
 
+        /*
+         * Initialisation du SDK Google Mobile Ads.
+         * Une seule initialisation au lancement de l'application.
+         */
+        new Thread(() ->
+                MobileAds.initialize(
+                        MainActivity.this,
+                        initializationStatus -> {
+                        }
+                )
+        ).start();
+
+        /*
+         * Passerelle entre MONUMANIA et les publicités AdMob.
+         */
+        adsGateway = new AdMobAdsGateway(this);
+
+        webView.addJavascriptInterface(
+                new NativeAdsBridge(webView, adsGateway),
+                "MonumaniaAds"
+        );
+
         webView.loadUrl(START_URL);
     }
 
@@ -67,6 +96,7 @@ public final class MainActivity extends Activity {
     @Override
     protected void onDestroy() {
         if (webView != null) {
+            webView.removeJavascriptInterface("MonumaniaAds");
             webView.destroy();
             webView = null;
         }
