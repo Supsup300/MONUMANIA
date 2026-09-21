@@ -1,4 +1,4 @@
-package fr.adriansalard.monumania.consent;
+package com.kartel99games.monumania.consent;
 
 public interface ConsentGateway {
     interface Callback {
