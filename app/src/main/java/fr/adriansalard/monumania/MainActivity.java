@@ -1,4 +1,4 @@
-package fr.adriansalard.monumania;
+package com.kartel99games.monumania;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -16,10 +16,10 @@ import android.webkit.WebViewClient;
 import androidx.annotation.Nullable;
 import androidx.webkit.WebViewAssetLoader;
 
-import fr.adriansalard.monumania.ads.NativeAdsBridge;
-import fr.adriansalard.monumania.ads.NoOpAdsGateway;
-import fr.adriansalard.monumania.consent.NativeConsentBridge;
-import fr.adriansalard.monumania.consent.NoOpConsentGateway;
+import com.kartel99games.monumania.ads.NativeAdsBridge;
+import com.kartel99games.monumania.ads.NoOpAdsGateway;
+import com.kartel99games.monumania.consent.NativeConsentBridge;
+import com.kartel99games.monumania.consent.NoOpConsentGateway;
 
 public final class MainActivity extends Activity {
     private static final String APP_HOST = "appassets.androidplatform.net";
