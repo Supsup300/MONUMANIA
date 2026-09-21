@@ -3,37 +3,74 @@ package com.kartel99games.monumania;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+
+import androidx.webkit.WebViewAssetLoader;
 
 public final class MainActivity extends Activity {
+
+    private static final String APP_HOST = "appassets.androidplatform.net";
+    private static final String START_URL =
+            "https://" + APP_HOST + "/assets/public/index.html";
+
+    private WebView webView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        LinearLayout layout = new LinearLayout(this);
-        layout.setOrientation(LinearLayout.VERTICAL);
-        layout.setGravity(Gravity.CENTER);
-        layout.setPadding(40, 40, 40, 40);
-        layout.setBackgroundColor(Color.rgb(6, 29, 53));
+        WebViewAssetLoader assetLoader =
+                new WebViewAssetLoader.Builder()
+                        .addPathHandler(
+                                "/assets/",
+                                new WebViewAssetLoader.AssetsPathHandler(this)
+                        )
+                        .build();
 
-        TextView title = new TextView(this);
-        title.setText("MONUMANIA");
-        title.setTextColor(Color.WHITE);
-        title.setTextSize(32);
-        title.setGravity(Gravity.CENTER);
+        webView = new WebView(this);
+        webView.setBackgroundColor(Color.rgb(6, 29, 53));
 
-        TextView message = new TextView(this);
-        message.setText("\nAndroid fonctionne correctement.\n\nVersion de diagnostic");
-        message.setTextColor(Color.WHITE);
-        message.setTextSize(18);
-        message.setGravity(Gravity.CENTER);
+        WebSettings settings = webView.getSettings();
+        settings.setJavaScriptEnabled(true);
+        settings.setDomStorageEnabled(true);
+        settings.setDatabaseEnabled(true);
+        settings.setAllowFileAccess(false);
+        settings.setAllowContentAccess(false);
+        settings.setMediaPlaybackRequiresUserGesture(true);
 
-        layout.addView(title);
-        layout.addView(message);
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public android.webkit.WebResourceResponse shouldInterceptRequest(
+                    WebView view,
+                    android.webkit.WebResourceRequest request) {
 
-        setContentView(layout);
+                return assetLoader.shouldInterceptRequest(request.getUrl());
+            }
+        });
+
+        setContentView(webView);
+
+        webView.loadUrl(START_URL);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (webView != null && webView.canGoBack()) {
+            webView.goBack();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (webView != null) {
+            webView.destroy();
+            webView = null;
+        }
+
+        super.onDestroy();
     }
 }
