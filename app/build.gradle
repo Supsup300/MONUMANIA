@@ -12,11 +12,11 @@ if (hasReleaseSigning) {
 }
 
 android {
-    namespace "fr.adriansalard.monumania"
+    namespace "com.kartel99games.monumania"
     compileSdk 36
 
     defaultConfig {
-        applicationId "fr.adriansalard.monumania"
+        applicationId "com.kartel99games.monumania"
         minSdk 26
         targetSdk 36
         versionCode 1
