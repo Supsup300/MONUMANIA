@@ -62,7 +62,7 @@ versionName "1.0.2"
 
 dependencies {
     implementation "androidx.webkit:webkit:1.17.0"
-
+implementation "com.google.android.gms:play-services-ads:24.6.0"
     // Aucun SDK publicitaire n'est lié tant que les identifiants AdMob et
     // le recueil du consentement ne sont pas configurés. Le jeu conserve
     // alors ses publicités simulées locales, sans collecte de données.
