@@ -77,7 +77,7 @@ public final class MainActivity extends Activity {
         adsGateway = new AdMobAdsGateway(this);
 
         webView.addJavascriptInterface(
-                new NativeAdsBridge(webView, adsGateway),
+                new NativeAdsBridge(this, webView, adsGateway),
                 "MonumaniaAds"
         );
 
