@@ -1,4 +1,4 @@
-package fr.adriansalard.monumania.ads;
+package com.kartel99games.monumania.ads;
 
 public final class AdConfig {
     public enum Environment { SIMULATION, PRODUCTION }
