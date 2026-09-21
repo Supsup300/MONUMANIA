@@ -1,4 +1,4 @@
-package fr.adriansalard.monumania.ads;
+package com.kartel99games.monumania.ads;
 
 import android.app.Activity;
 import android.webkit.JavascriptInterface;
